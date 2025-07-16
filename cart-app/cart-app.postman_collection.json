@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "cart-app-collection",
+		"name": "Cart App API",
+		"description": "API collection for the Cart App microservice",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check if the cart service is running and healthy"
+			},
+			"response": [
+				{
+					"name": "Health Check Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": \"ok\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": \"user-123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/create",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"create"
+					]
+				},
+				"description": "Create a new cart for a user"
+			},
+			"response": [
+				{
+					"name": "Create Cart Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"user-123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"create"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Ok\",\n    \"cart_uuid\": \"550e8400-e29b-41d4-a716-446655440000\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Cart",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/cart/{{cart_uuid}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"{{cart_uuid}}"
+					]
+				},
+				"description": "Get cart details by cart UUID"
+			},
+			"response": [
+				{
+					"name": "Get Cart Success",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cart/{{cart_uuid}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"{{cart_uuid}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"uuid\": \"cart-uuid-123\",\n    \"user_id\": \"user-123\",\n    \"items\": []\n}"
+				}
+			]
+		},
+		{
+			"name": "Add to Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"product-uuid-456\",\n    \"quantity\": 2\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/add",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"add"
+					]
+				},
+				"description": "Add a product to the cart"
+			},
+			"response": [
+				{
+					"name": "Add to Cart Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"product-uuid-456\",\n    \"quantity\": 2\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/add",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"add"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Ok\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Remove from Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"product-uuid-456\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/remove",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"remove"
+					]
+				},
+				"description": "Remove a product from the cart"
+			},
+			"response": [
+				{
+					"name": "Remove from Cart Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"product-uuid-456\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/remove",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"remove"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Ok\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Clear Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/clear",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"clear"
+					]
+				},
+				"description": "Clear all items from the cart"
+			},
+			"response": [
+				{
+					"name": "Clear Cart Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/clear",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"clear"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Ok\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Checkout Cart",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/cart/checkout",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"cart",
+						"checkout"
+					]
+				},
+				"description": "Checkout the cart and process the order"
+			},
+			"response": [
+				{
+					"name": "Checkout Cart Success",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/cart/checkout",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cart",
+								"checkout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Ok\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "cart_uuid",
+			"value": "cart-uuid-123",
+			"type": "string"
+		}
+	]
+}
