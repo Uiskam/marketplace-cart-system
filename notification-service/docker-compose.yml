@@ -1,0 +1,65 @@
+services:
+  redis:
+    build:
+      context: ./queue-service
+    ports:
+      - "6379:6379"
+    networks:
+      - notification-network
+
+  api:
+    build:
+      context: .
+      dockerfile: ./api-server/Dockerfile
+    environment:
+      - REDIS_ADDR=redis:6379
+      - PORT=8082
+    ports:
+      - "8082:8082"
+    depends_on:
+      - redis
+    networks:
+      - notification-network
+      - shared-network
+
+  email-processor:
+    build:
+      context: .
+      dockerfile: ./email-processor/Dockerfile
+    environment:
+      - REDIS_ADDR=redis:6379
+    depends_on:
+      - redis
+    networks:
+      - notification-network
+    deploy:
+      replicas: ${EMAIL_REPLICAS:-1}
+
+  push-processor:
+    build:
+      context: .
+      dockerfile: ./push-processor/Dockerfile
+    environment:
+      - REDIS_ADDR=redis:6379
+    depends_on:
+      - redis
+    networks:
+      - notification-network
+    deploy:
+      replicas: ${PUSH_REPLICAS:-1}
+
+  asynqmon:
+    image: hibiken/asynqmon
+    ports:
+      - "8079:8080"
+    command: --redis-addr=redis:6379
+    depends_on:
+      - redis
+    networks:
+      - notification-network
+
+networks:
+  notification-network:
+    driver: bridge
+  shared-network:
+    external: true

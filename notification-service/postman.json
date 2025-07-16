@@ -1,0 +1,311 @@
+{
+  "info": {
+    "_postman_id": "6a3e3da7-9ff4-4654-a5c8-50c1d9fb7a7e",
+    "name": "Notification Service",
+    "description": "Test collection for the notification service API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Send Email Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Important update about your account\",\n    \"channel\": \"email\",\n    \"recipient\": \"user@example.com\",\n    \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Send an immediate email notification"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Push Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"New message received\",\n    \"channel\": \"push\",\n    \"recipient\": \"user123\",\n    \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Send an immediate push notification"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Scheduled Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Reminder for upcoming event\",\n    \"channel\": \"email\",\n    \"recipient\": \"user@example.com\",\n    \"priority\": \"low\",\n    \"sendAt\": \"{{$isoTimestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Send a scheduled notification with dynamic timestamp"
+      },
+      "response": []
+    },
+    {
+      "name": "Future Scheduled Notification",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Future scheduled notification\",\n    \"channel\": \"push\",\n    \"recipient\": \"user123\",\n    \"priority\": \"low\",\n    \"sendAt\": \"2025-12-31T23:59:59Z\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Send a notification scheduled for future delivery"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Pending Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/tasks/pending",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks",
+            "pending"
+          ]
+        },
+        "description": "Get all pending tasks"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Completed Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/tasks/completed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks",
+            "completed"
+          ]
+        },
+        "description": "Get all completed tasks"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Failed Tasks",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/tasks/failed",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks",
+            "failed"
+          ]
+        },
+        "description": "Get all failed tasks"
+      },
+      "response": []
+    },
+    {
+      "name": "Send Task Now",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/tasks/{id}/send-now",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks",
+            "{id}",
+            "send-now"
+          ]
+        },
+        "description": "Process a specific task immediately"
+      },
+      "response": []
+    },
+    {
+      "name": "Cancel Task",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/tasks/{id}/cancel",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks",
+            "{id}",
+            "cancel"
+          ]
+        },
+        "description": "Cancel a specific task"
+      },
+      "response": []
+    },
+    {
+      "name": "Get Metrics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8081/metrics",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "metrics"
+          ]
+        },
+        "description": "Get metrics from asynqmon"
+      },
+      "response": []
+    },
+    {
+      "name": "Invalid Channel (Error Test)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Test invalid channel\",\n    \"channel\": \"sms\",\n    \"recipient\": \"user@example.com\",\n    \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Test validation with an invalid channel"
+      },
+      "response": []
+    },
+    {
+      "name": "Missing Required Field (Error Test)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"content\": \"Test missing field\",\n    \"channel\": \"email\",\n    \"priority\": \"high\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8081/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8081",
+          "path": [
+            "tasks"
+          ]
+        },
+        "description": "Test validation with a missing required field (recipient)"
+      },
+      "response": []
+    }
+  ]
+}

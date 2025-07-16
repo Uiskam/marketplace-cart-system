@@ -1,0 +1,7 @@
+https://threedots.tech/post/basic-cqrs-in-go/
+
+https://medium.com/@stani.petrosyan/how-to-implement-cqrs-and-event-sourcing-pattern-in-go-fd47dc0afd80
+
+https://victoramartinez.com/posts/event-sourcing-in-go/
+
+https://dev.to/aleksk1ng/go-eventsourcing-and-cqrs-microservice-using-eventstoredb-5djo
