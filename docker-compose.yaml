@@ -1,0 +1,88 @@
+services:
+  postgres-product:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: product-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    networks:
+      - marketplace-network
+
+  postgres-cart:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: cart-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    volumes:
+      - cart_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -p 5433" ]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    command: postgres -p 5433
+    networks:
+      - marketplace-network
+
+  product-app:
+    build:
+      context: ./product-app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres-product:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres-product
+      DB_PORT: 5432
+      DB_NAME: product-db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - marketplace-network
+
+  cart-app:
+    build:
+      context: ./cart-app
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    depends_on:
+      postgres-cart:
+        condition: service_healthy
+    environment:
+      DB_HOST: postgres-cart
+      DB_PORT: 5433
+      DB_NAME: cart-db
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+    networks:
+      - marketplace-network
+      - shared-network
+
+volumes:
+  postgres_data:
+  cart_postgres_data:
+
+networks:
+  marketplace-network:
+    driver: bridge
+  shared-network:
+    external: true
+
+

@@ -1,0 +1,319 @@
+{
+	"info": {
+		"_postman_id": "marketplace-system-simple-collection",
+		"name": "Marketplace System API (Simple)",
+		"description": "Combined API collection for Product App and Cart App microservices with default values",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Product App",
+			"description": "Product management service endpoints",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productBaseUrl}}/health",
+							"host": [
+								"{{productBaseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check if the product service is running and healthy"
+					}
+				},
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{productBaseUrl}}/products",
+							"host": [
+								"{{productBaseUrl}}"
+							],
+							"path": [
+								"products"
+							]
+						},
+						"description": "Retrieve all products from the system"
+					}
+				},
+				{
+					"name": "Lock Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"locking_entity\": \"cart-service-1\"\n}"
+						},
+						"url": {
+							"raw": "{{productBaseUrl}}/products/lock",
+							"host": [
+								"{{productBaseUrl}}"
+							],
+							"path": [
+								"products",
+								"lock"
+							]
+						},
+						"description": "Lock a product to prevent other entities from accessing it for 30 minutes"
+					}
+				},
+				{
+					"name": "Unlock Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"locking_entity\": \"cart-service-1\"\n}"
+						},
+						"url": {
+							"raw": "{{productBaseUrl}}/products/unlock",
+							"host": [
+								"{{productBaseUrl}}"
+							],
+							"path": [
+								"products",
+								"unlock"
+							]
+						},
+						"description": "Unlock a previously locked product by setting lock_end to 1950-01-01"
+					}
+				},
+				{
+					"name": "Sell Product",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"locking_entity\": \"cart-service-1\"\n}"
+						},
+						"url": {
+							"raw": "{{productBaseUrl}}/products/sell",
+							"host": [
+								"{{productBaseUrl}}"
+							],
+							"path": [
+								"products",
+								"sell"
+							]
+						},
+						"description": "Sell a product by creating an infinite lock (until year 2500)"
+					}
+				}
+			]
+		},
+		{
+			"name": "Cart App",
+			"description": "Cart management service endpoints",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cartBaseUrl}}/health",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						},
+						"description": "Check if the cart service is running and healthy"
+					}
+				},
+				{
+					"name": "Create Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"user-123\"\n}"
+						},
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/create",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"create"
+							]
+						},
+						"description": "Create a new cart for a user"
+					}
+				},
+				{
+					"name": "Get Cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/cart-uuid-123",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"cart-uuid-123"
+							]
+						},
+						"description": "Get cart details by cart UUID"
+					}
+				},
+				{
+					"name": "Add to Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"550e8400-e29b-41d4-a716-446655440000\",\n    \"quantity\": 2\n}"
+						},
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/add",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"add"
+							]
+						},
+						"description": "Add a product to the cart"
+					}
+				},
+				{
+					"name": "Remove from Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\",\n    \"product_uuid\": \"550e8400-e29b-41d4-a716-446655440000\"\n}"
+						},
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/remove",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"remove"
+							]
+						},
+						"description": "Remove a product from the cart"
+					}
+				},
+				{
+					"name": "Clear Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+						},
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/clear",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"clear"
+							]
+						},
+						"description": "Clear all items from the cart"
+					}
+				},
+				{
+					"name": "Checkout Cart",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"cart_uuid\": \"cart-uuid-123\"\n}"
+						},
+						"url": {
+							"raw": "{{cartBaseUrl}}/cart/checkout",
+							"host": [
+								"{{cartBaseUrl}}"
+							],
+							"path": [
+								"cart",
+								"checkout"
+							]
+						},
+						"description": "Checkout the cart and process the order"
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "productBaseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "cartBaseUrl",
+			"value": "http://localhost:8081",
+			"type": "string"
+		}
+	]
+}
